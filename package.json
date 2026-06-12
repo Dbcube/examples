@@ -14,9 +14,10 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "dbcube": "^5.2.1",
     "@dbcube/cli": "^5.2.1",
-    "@dbcube/schema-builder": "^5.2.1"
+    "@dbcube/schema-builder": "^5.2.1",
+    "dbcube": "^5.2.1",
+    "koffi": "^3.0.2"
   },
   "devDependencies": {
     "@types/node": "^24.0.12"
