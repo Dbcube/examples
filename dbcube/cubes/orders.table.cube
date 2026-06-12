@@ -1,0 +1,30 @@
+@database("demo");
+
+@meta({
+    name: "orders";
+    description: "Orders, each belonging to a user (foreign key powers .with())";
+});
+
+@columns({
+    id: {
+        type: "int";
+        options: ["primary", "autoincrement"];
+    };
+    user_id: {
+        type: "int";
+        options: ["not null"];
+        foreign: {
+            table: "users";
+            column: "id";
+        };
+    };
+    product: {
+        type: "varchar";
+        length: "255";
+        options: ["not null"];
+    };
+    total: {
+        type: "int";
+        defaultValue: "0";
+    };
+});

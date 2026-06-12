@@ -1,0 +1,66 @@
+{
+    "sourceFile": "dbcube/cubes/table.cube",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 12,
+            "patches": [
+                {
+                    "date": 1752943805460,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1752962505732,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,8 +14,13 @@\n         type: \"varchar\";\r\n         length: \"255\";\r\n         options: [\"not null\"];\r\n     };\r\n+    name: { \r\n+        type: \"last_name\";\r\n+        length: \"255\";\r\n+        options: [\"not null\"];\r\n+    };\r\n     full_name: {\r\n         type: \"string\";\r\n         value: @compute(()=>{ \r\n             const name = @column(name) + \" - \" + @column(id) + new Date();\r\n"
+                },
+                {
+                    "date": 1752962575318,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,10 +14,10 @@\n         type: \"varchar\";\r\n         length: \"255\";\r\n         options: [\"not null\"];\r\n     };\r\n-    name: { \r\n-        type: \"last_name\";\r\n+    last_name: { \r\n+        type: \"varchar\";\r\n         length: \"255\";\r\n         options: [\"not null\"];\r\n     };\r\n     full_name: {\r\n"
+                },
+                {
+                    "date": 1752963262096,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,13 +14,8 @@\n         type: \"varchar\";\r\n         length: \"255\";\r\n         options: [\"not null\"];\r\n     };\r\n-    last_name: { \r\n-        type: \"varchar\";\r\n-        length: \"255\";\r\n-        options: [\"not null\"];\r\n-    };\r\n     full_name: {\r\n         type: \"string\";\r\n         value: @compute(()=>{ \r\n             const name = @column(name) + \" - \" + @column(id) + new Date();\r\n"
+                },
+                {
+                    "date": 1752972339274,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,8 +14,13 @@\n         type: \"varchar\";\r\n         length: \"255\";\r\n         options: [\"not null\"];\r\n     };\r\n+    last_name: { \r\n+        type: \"varchar\";\r\n+        length: \"255\";\r\n+        options: [\"not null\"];\r\n+    };\r\n     full_name: {\r\n         type: \"string\";\r\n         value: @compute(()=>{ \r\n             const name = @column(name) + \" - \" + @column(id) + new Date();\r\n"
+                },
+                {
+                    "date": 1752972365644,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,13 +14,8 @@\n         type: \"varchar\";\r\n         length: \"255\";\r\n         options: [\"not null\"];\r\n     };\r\n-    last_name: { \r\n-        type: \"varchar\";\r\n-        length: \"255\";\r\n-        options: [\"not null\"];\r\n-    };\r\n     full_name: {\r\n         type: \"string\";\r\n         value: @compute(()=>{ \r\n             const name = @column(name) + \" - \" + @column(id) + new Date();\r\n"
+                },
+                {
+                    "date": 1752972386682,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,8 +14,13 @@\n         type: \"varchar\";\r\n         length: \"255\";\r\n         options: [\"not null\"];\r\n     };\r\n+    last_name: { \r\n+        type: \"varchar\";\r\n+        length: \"255\";\r\n+        options: [\"not null\"];\r\n+    };\r\n     full_name: {\r\n         type: \"string\";\r\n         value: @compute(()=>{ \r\n             const name = @column(name) + \" - \" + @column(id) + new Date();\r\n"
+                },
+                {
+                    "date": 1752981682443,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,13 +14,8 @@\n         type: \"varchar\";\r\n         length: \"255\";\r\n         options: [\"not null\"];\r\n     };\r\n-    last_name: { \r\n-        type: \"varchar\";\r\n-        length: \"255\";\r\n-        options: [\"not null\"];\r\n-    };\r\n     full_name: {\r\n         type: \"string\";\r\n         value: @compute(()=>{ \r\n             const name = @column(name) + \" - \" + @column(id) + new Date();\r\n"
+                },
+                {
+                    "date": 1752986352187,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,8 +14,13 @@\n         type: \"varchar\";\r\n         length: \"255\";\r\n         options: [\"not null\"];\r\n     };\r\n+    last_name: { \r\n+        type: \"varchar\";\r\n+        length: \"255\";\r\n+        options: [\"not null\"];\r\n+    };\r\n     full_name: {\r\n         type: \"string\";\r\n         value: @compute(()=>{ \r\n             const name = @column(name) + \" - \" + @column(id) + new Date();\r\n"
+                },
+                {
+                    "date": 1752986751252,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,25 @@\n+@database(\"test4\");\r\n+\r\n+@meta({\r\n+    name: \"users\";\r\n+    description: \"No puede estar vacio\";\r\n+});\r\n+\r\n+@columns({\r\n+    id: { \r\n+        type: \"int\";\r\n+        options: [\"primary\", \"autoincrement\"];\r\n+    };\r\n+    name: { \r\n+        type: \"varchar\";\r\n+        length: \"255\";\r\n+        options: [\"not null\"];\r\n+    };\r\n+    full_name: {\r\n+        type: \"string\";\r\n+        value: @compute(()=>{ \r\n+            const name = @column(name) + \" - \" + @column(id) + new Date();\r\n+            return name;\r\n+        });\r\n+    };\r\n+});\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1752986892136,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,8 +14,13 @@\n         type: \"varchar\";\r\n         length: \"255\";\r\n         options: [\"not null\"];\r\n     };\r\n+    last_name: { \r\n+        type: \"varchar\";\r\n+        length: \"255\";\r\n+        options: [\"not null\"];\r\n+    };\r\n     full_name: {\r\n         type: \"string\";\r\n         value: @compute(()=>{ \r\n             const name = @column(name) + \" - \" + @column(id) + new Date();\r\n"
+                },
+                {
+                    "date": 1752989772498,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,47 +14,12 @@\n         type: \"varchar\";\r\n         length: \"255\";\r\n         options: [\"not null\"];\r\n     };\r\n-    last_name: { \r\n-        type: \"varchar\";\r\n-        length: \"255\";\r\n-        options: [\"not null\"];\r\n-    };\r\n     full_name: {\r\n         type: \"string\";\r\n         value: @compute(()=>{ \r\n             const name = @column(name) + \" - \" + @column(id) + new Date();\r\n             return name;\r\n         });\r\n     };\r\n-});\n-@database(\"test4\");\r\n-\r\n-@meta({\r\n-    name: \"users\";\r\n-    description: \"No puede estar vacio\";\r\n-});\r\n-\r\n-@columns({\r\n-    id: { \r\n-        type: \"int\";\r\n-        options: [\"primary\", \"autoincrement\"];\r\n-    };\r\n-    name: { \r\n-        type: \"varchar\";\r\n-        length: \"255\";\r\n-        options: [\"not null\"];\r\n-    };\r\n-    last_name: { \r\n-        type: \"varchar\";\r\n-        length: \"255\";\r\n-        options: [\"not null\"];\r\n-    };\r\n-    full_name: {\r\n-        type: \"string\";\r\n-        value: @compute(()=>{ \r\n-            const name = @column(name) + \" - \" + @column(id) + new Date();\r\n-            return name;\r\n-        });\r\n-    };\r\n });\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1752990431796,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,12 +14,17 @@\n         type: \"varchar\";\r\n         length: \"255\";\r\n         options: [\"not null\"];\r\n     };\r\n+    last_name: { \r\n+        type: \"varchar\";\r\n+        length: \"255\";\r\n+        options: [\"not null\"];\r\n+    };\r\n     full_name: {\r\n         type: \"string\";\r\n         value: @compute(()=>{ \r\n-            const name = @column(name) + \" - \" + @column(id) + new Date();\r\n+            const name = @column(name) + \" - \" + @column(last_name);\r\n             return name;\r\n         });\r\n     };\r\n });\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1752943805460,
+            "name": "Commit-0",
+            "content": "@database(\"test4\");\r\n\r\n@meta({\r\n    name: \"users\";\r\n    description: \"No puede estar vacio\";\r\n});\r\n\r\n@columns({\r\n    id: { \r\n        type: \"int\";\r\n        options: [\"primary\", \"autoincrement\"];\r\n    };\r\n    name: { \r\n        type: \"varchar\";\r\n        length: \"255\";\r\n        options: [\"not null\"];\r\n    };\r\n    full_name: {\r\n        type: \"string\";\r\n        value: @compute(()=>{ \r\n            const name = @column(name) + \" - \" + @column(id) + new Date();\r\n            return name;\r\n        });\r\n    };\r\n});"
+        }
+    ]
+}

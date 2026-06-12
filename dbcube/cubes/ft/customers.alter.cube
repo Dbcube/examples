@@ -1,0 +1,9 @@
+@database("ft_sqlite");
+@table("customers");
+
+@addColumn({
+    phone: {
+        type: "varchar";
+        length: "30";
+    };
+});

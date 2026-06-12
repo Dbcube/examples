@@ -1,0 +1,22 @@
+{
+    "sourceFile": "dbcube/cubes/seeder.cube",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1753031134179,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1753031216598,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,12 +1,12 @@\n @database(\"test\");\r\n @table(\"users\");\r\n \r\n-@fields(\"name\");\r\n+@fields(\"name\",\"last_name\");\r\n \r\n @dataset(\r\n-    (\"Albert\"),\r\n-    (\"Omar\"),\r\n-    (\"Brizeida\"),\r\n-    (\"Mikaela\"),\r\n-    (\"Kevyn\"),\r\n+    (\"Albert\", \"Araya Cory\"),\r\n+    (\"Omar\", \"Araya Villareal\"),\r\n+    (\"Brizeida\", \"Cory Camacho\"),\r\n+    (\"Mikaela\", \"Araya Cory\"),\r\n+    (\"Kevyn\", \"Araya Cory\"),\r\n );\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1753031134179,
+            "name": "Commit-0",
+            "content": "@database(\"test\");\r\n@table(\"users\");\r\n\r\n@fields(\"name\");\r\n\r\n@dataset(\r\n    (\"Albert\"),\r\n    (\"Omar\"),\r\n    (\"Brizeida\"),\r\n    (\"Mikaela\"),\r\n    (\"Kevyn\"),\r\n);"
+        }
+    ]
+}

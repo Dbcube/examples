@@ -1,0 +1,54 @@
+{
+    "sourceFile": "src/dml/select.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 9,
+            "patches": [
+                {
+                    "date": 1752941979000,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1752942797632,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,12 +2,14 @@\n \r\n \r\n async function main(){\r\n     const db = new Database(\"test\");\r\n+    await db.connect();\r\n     const dml = await db.table('users')\r\n                 .select(['id', 'name'])\r\n                 .get();\r\n     console.log(dml)\r\n+    await db.disconnect();\r\n }\r\n \r\n \r\n main();\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1752943000314,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,14 +2,13 @@\n \r\n \r\n async function main(){\r\n     const db = new Database(\"test\");\r\n-    await db.connect();\r\n+    await db.useCompute();\r\n     const dml = await db.table('users')\r\n                 .select(['id', 'name'])\r\n                 .get();\r\n     console.log(dml)\r\n-    await db.disconnect();\r\n }\r\n \r\n \r\n main();\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1752944998554,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n async function main(){\r\n     const db = new Database(\"test\");\r\n     await db.useCompute();\r\n     const dml = await db.table('users')\r\n-                .select(['id', 'name'])\r\n+                .select(['*'])\r\n                 .get();\r\n     console.log(dml)\r\n }\r\n \r\n"
+                },
+                {
+                    "date": 1752945223885,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n async function main(){\r\n     const db = new Database(\"test\");\r\n     await db.useCompute();\r\n     const dml = await db.table('users')\r\n-                .select(['*'])\r\n+                .select(['fill_name'])\r\n                 .get();\r\n     console.log(dml)\r\n }\r\n \r\n"
+                },
+                {
+                    "date": 1752945230529,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n async function main(){\r\n     const db = new Database(\"test\");\r\n     await db.useCompute();\r\n     const dml = await db.table('users')\r\n-                .select(['fill_name'])\r\n+                .select(['full_name'])\r\n                 .get();\r\n     console.log(dml)\r\n }\r\n \r\n"
+                },
+                {
+                    "date": 1752949204031,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,10 +4,10 @@\n async function main(){\r\n     const db = new Database(\"test\");\r\n     await db.useCompute();\r\n     const dml = await db.table('users')\r\n-                .select(['full_name'])\r\n-                .get();\r\n+                .select(['full_names'])\r\n+                .first();\r\n     console.log(dml)\r\n }\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1752949214863,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n async function main(){\r\n     const db = new Database(\"test\");\r\n     await db.useCompute();\r\n     const dml = await db.table('users')\r\n-                .select(['full_names'])\r\n+                .select(['full_name'])\r\n                 .first();\r\n     console.log(dml)\r\n }\r\n \r\n"
+                },
+                {
+                    "date": 1752949229056,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,13 @@\n+const { default: Database } = require(\"@dbcube/query-builder\");\r\n+\r\n+async function main(){\r\n+    const db = new Database(\"test\");\r\n+    await db.useCompute();\r\n+    const dml = await db.table('users')\r\n+                .select(['full_name'])\r\n+                .first();\r\n+    console.log(dml)\r\n+}\r\n+\r\n+\r\n+main();\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1753038073501,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,24 +4,10 @@\n     const db = new Database(\"test\");\r\n     await db.useCompute();\r\n     const dml = await db.table('users')\r\n                 .select(['full_name'])\r\n-                .first();\r\n+                .get();\r\n     console.log(dml)\r\n }\r\n \r\n \r\n-main();\n-const { default: Database } = require(\"@dbcube/query-builder\");\r\n-\r\n-\r\n-async function main(){\r\n-    const db = new Database(\"test\");\r\n-    await db.useCompute();\r\n-    const dml = await db.table('users')\r\n-                .select(['full_name'])\r\n-                .first();\r\n-    console.log(dml)\r\n-}\r\n-\r\n-\r\n main();\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1752941979000,
+            "name": "Commit-0",
+            "content": "const { default: Database } = require(\"@dbcube/query-builder\");\r\n\r\n\r\nasync function main(){\r\n    const db = new Database(\"test\");\r\n    const dml = await db.table('users')\r\n                .select(['id', 'name'])\r\n                .get();\r\n    console.log(dml)\r\n}\r\n\r\n\r\nmain();"
+        }
+    ]
+}

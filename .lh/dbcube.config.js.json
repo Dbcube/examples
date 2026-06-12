@@ -1,0 +1,22 @@
+{
+    "sourceFile": "dbcube.config.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1755665183427,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1755665192429,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,15 @@\n+require('dotenv').config();\n+\n+    module.exports = function (config) {\n+        config.set({\n+            databases: {\n+                test: {\n+                    type: \"sqlite\",\n+                    config:{\n+                        DATABASE: process.env.DBCUBE_TEST_DATABASE\n+                    }\n+                },\n+            }\n+        });  \n+    };\n+    \n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1755665183427,
+            "name": "Commit-0",
+            "content": "require('dotenv').config();\n\n    module.exports = function (config) {\n        config.set({\n            databases: {\n                test1: {\n                    type: \"sqlite\",\n                    config:{\n                        DATABASE: process.env.DBCUBE_TEST_DATABASE\n                    }\n                },\n            }\n        });  \n    };\n    "
+        }
+    ]
+}

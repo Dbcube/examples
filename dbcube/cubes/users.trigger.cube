@@ -1,0 +1,30 @@
+@database("demo");
+@table("users");
+
+@beforeAdd({
+    name: "normalize_email";
+    description: "Lowercase emails before inserting";
+    function: ({db, oldData, newData})=>{
+        if (newData.email) {
+            newData.email = String(newData.email).toLowerCase();
+        }
+    };
+});
+
+@afterAdd({
+    name: "welcome_log";
+    description: "Audit-log every new user (runs once per insert, even with N service replicas)";
+    function: ({db, oldData, newData})=>{
+        console.log(`[audit] user created: ${newData.email}`);
+        // You can use `db` here to write to other tables, e.g. an audit table.
+        // Keep trigger logic idempotent if your app retries failed requests.
+    };
+});
+
+@afterDelete({
+    name: "deletion_log";
+    description: "Record deletions for compliance";
+    function: ({db, oldData, newData})=>{
+        console.log(`[audit] user deleted: ${oldData.email}`);
+    };
+});

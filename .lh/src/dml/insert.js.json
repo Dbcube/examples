@@ -1,0 +1,42 @@
+{
+    "sourceFile": "src/dml/insert.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 6,
+            "patches": [
+                {
+                    "date": 1752946262412,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1752963246107,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,10 @@\n async function main(){\r\n     const db = new Database(\"test\");\r\n     const dml = await db.table('users')\r\n                 .insert([{\r\n-                    name: \"Albert\"\r\n+                    name: \"Albert\",\r\n+                    last_name: \"Araya\"\r\n                 }]);\r\n     console.log(dml)\r\n }\r\n \r\n"
+                },
+                {
+                    "date": 1753047054463,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,8 +2,9 @@\n \r\n \r\n async function main(){\r\n     const db = new Database(\"test\");\r\n+    db.useTrigger();\r\n     const dml = await db.table('users')\r\n                 .insert([{\r\n                     name: \"Albert\",\r\n                     last_name: \"Araya\"\r\n"
+                },
+                {
+                    "date": 1753047075698,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n \r\n \r\n async function main(){\r\n     const db = new Database(\"test\");\r\n-    db.useTrigger();\r\n+    db.useTriggers();\r\n     const dml = await db.table('users')\r\n                 .insert([{\r\n                     name: \"Albert\",\r\n                     last_name: \"Araya\"\r\n"
+                },
+                {
+                    "date": 1753047109955,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n \r\n \r\n async function main(){\r\n     const db = new Database(\"test\");\r\n-    db.useTriggers();\r\n+    await db.useTriggers();\r\n     const dml = await db.table('users')\r\n                 .insert([{\r\n                     name: \"Albert\",\r\n                     last_name: \"Araya\"\r\n"
+                },
+                {
+                    "date": 1753057165705,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n \r\n \r\n async function main(){\r\n     const db = new Database(\"test\");\r\n-    await db.useTriggers();\r\n+    //await db.useTriggers();\r\n     const dml = await db.table('users')\r\n                 .insert([{\r\n                     name: \"Albert\",\r\n                     last_name: \"Araya\"\r\n"
+                },
+                {
+                    "date": 1753057175273,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n \r\n \r\n async function main(){\r\n     const db = new Database(\"test\");\r\n-    //await db.useTriggers();\r\n+    await db.useTriggers();\r\n     const dml = await db.table('users')\r\n                 .insert([{\r\n                     name: \"Albert\",\r\n                     last_name: \"Araya\"\r\n"
+                }
+            ],
+            "date": 1752946262412,
+            "name": "Commit-0",
+            "content": "const { default: Database } = require(\"@dbcube/query-builder\");\r\n\r\n\r\nasync function main(){\r\n    const db = new Database(\"test\");\r\n    const dml = await db.table('users')\r\n                .insert([{\r\n                    name: \"Albert\"\r\n                }]);\r\n    console.log(dml)\r\n}\r\n\r\n\r\nmain();"
+        }
+    ]
+}

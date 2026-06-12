@@ -1,0 +1,42 @@
+@database("demo");
+
+@meta({
+    name: "users";
+    description: "Application users with a computed display field";
+});
+
+@columns({
+    id: {
+        type: "int";
+        options: ["primary", "autoincrement"];
+    };
+    name: {
+        type: "varchar";
+        length: "255";
+        options: ["not null"];
+    };
+    email: {
+        type: "varchar";
+        length: "150";
+        options: ["unique"];
+    };
+    age: {
+        type: "int";
+    };
+    status: {
+        type: "varchar";
+        length: "20";
+        defaultValue: "active";
+    };
+    balance: {
+        type: "int";
+        defaultValue: "0";
+    };
+    display_name: {
+        type: "string";
+        value: @compute(()=>{
+            const label = @column(name) + " <" + @column(email) + ">";
+            return label;
+        });
+    };
+});

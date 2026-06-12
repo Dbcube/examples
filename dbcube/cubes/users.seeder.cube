@@ -1,0 +1,11 @@
+@database("demo");
+@table("users");
+
+@fields("name","email","age");
+
+@dataset(
+    ("Ada Lovelace", "ada@example.com", "36"),
+    ("Linus Torvalds", "linus@example.com", "54"),
+    ("Grace Hopper", "grace@example.com", "85"),
+    ("Alan Turing", "alan@example.com", "41"),
+);

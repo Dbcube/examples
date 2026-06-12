@@ -1,0 +1,10 @@
+@database("ft_sqlite");
+@table("customers");
+
+@fields("first_name","last_name","email");
+
+@dataset(
+    ("Ada", "Lovelace", "ADA@SEED.DEV"),
+    ("Linus", "Torvalds", "LINUS@SEED.DEV"),
+    ("Grace", "Hopper", "GRACE@SEED.DEV"),
+);

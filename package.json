@@ -1,0 +1,24 @@
+{
+  "name": "dbcube-examples",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Runnable examples for every DBCube feature. Run setup.js first, then any example.",
+  "scripts": {
+    "setup": "node setup.js",
+    "all": "node setup.js && node 01-quickstart.js && node 02-reads.js && node 03-writes.js && node 04-aggregations.js && node 05-transactions.js && node 06-relations.js && node 07-raw.js",
+    "db:up": "docker compose up -d --wait",
+    "db:down": "docker compose down -v",
+    "full": "node full-test.js",
+    "full:all": "node run-all.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "dbcube": "^5.2.1",
+    "@dbcube/cli": "^5.2.1",
+    "@dbcube/schema-builder": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.12"
+  }
+}

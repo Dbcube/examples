@@ -1,0 +1,20 @@
+@database("ft_sqlite");
+@table("customers");
+
+@beforeAdd({
+    name: "normalize_email";
+    description: "Lowercase emails before every insert";
+    function: ({db, oldData, newData})=>{
+        if (newData.email) {
+            newData.email = String(newData.email).toLowerCase();
+        }
+    };
+});
+
+@afterAdd({
+    name: "audit_new_customer";
+    description: "Log every new customer";
+    function: ({db, oldData, newData})=>{
+        console.log(`[audit] customer created: ${newData.email}`);
+    };
+});
