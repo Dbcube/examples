@@ -1,0 +1,593 @@
+
+████████████████████████████████████████████████████████████
+█ full-test.js sqlite
+████████████████████████████████████████████████████████████
+
+🧪 DBCube FULL TEST — sqlite (ft_sqlite)
+
+━━ Setup de esquema ━━
+  ✅ seed: insert múltiple devuelve filas insertadas (38ms)
+  ✅ seed: orders (1ms)
+
+━━ Lecturas: select y where en todas sus variantes ━━
+  ✅ select de columnas específicas (0ms)
+  ✅ where = (1ms)
+  ✅ where != / <> (0ms)
+  ✅ where > < >= <= (2ms)
+  ✅ where LIKE / NOT LIKE (1ms)
+  ✅ whereIn / whereNotIn (1ms)
+  ✅ whereBetween (0ms)
+  ✅ whereNull / whereNotNull (1ms)
+  ✅ orWhere (0ms)
+  ✅ whereGroup (regresión grupo vacío) (1ms)
+  ✅ whereGroup anidado en cadena con más wheres (0ms)
+  ✅ first / find / find por columna (2ms)
+  ✅ orderBy ASC/DESC + múltiple lectura estable (0ms)
+  ✅ limit / offset / page (1ms)
+  ✅ distinct (1ms)
+  ✅ join INNER (0ms)
+  ✅ leftJoin conserva filas sin match (0ms)
+
+━━ Agregaciones ━━
+  ✅ count / count con where / count(col) (0ms)
+  ✅ sum / avg / max / min (1ms)
+  ✅ agregación con filtro (1ms)
+  ✅ exists (0ms)
+  ✅ groupBy + having + selectRaw (1ms)
+  ✅ paginate: páginas, total y flags (1ms)
+  ✅ paginate respeta where (1ms)
+  ✅ chunk completo y corte temprano (1ms)
+
+━━ Escrituras ━━
+  ✅ update con where (1ms)
+  ✅ update multi-columna (0ms)
+  ✅ update sin where → error (1ms)
+  ✅ delete sin where → error (0ms)
+  ✅ delete con where (1ms)
+  ✅ upsert inserta → actualiza → multi-fila (3ms)
+  ✅ upsert con updateColumns restringidas (0ms)
+  ✅ increment / decrement / con extra (2ms)
+  ✅ increment concurrente no pierde updates (atómico) (82ms)
+  ✅ truncate (1ms)
+
+━━ Transacciones ━━
+  ✅ commit aplica todo (4ms)
+  ✅ rollback revierte todo (1ms)
+  ✅ lecturas dentro de TX ven cambios no commiteados (2ms)
+  ✅ insert + delete dentro de TX con rollback (2ms)
+  ✅ raw dentro de TX participa del rollback (1ms)
+  ✅ transacciones secuenciales rápidas (10) (8ms)
+  ✅ el valor de retorno del callback se propaga (1ms)
+
+━━ Relaciones (eager loading) ━━
+  ✅ with() hasMany explícito (3ms)
+  ✅ with() belongsTo explícito (0ms)
+  ✅ with() + where + orderBy combinados (1ms)
+
+━━ raw() ━━
+  ✅ raw select con params (1ms)
+  ✅ raw DML devuelve affectedRows (0ms)
+  ✅ raw DDL (CREATE INDEX) (0ms)
+
+━━ Edge cases de datos ━━
+  ✅ comillas, backslashes y SQL-injection strings sobreviven (3ms)
+  ✅ unicode: emojis, chino, árabe, acentos (3ms)
+  ✅ string largo (100 KB) (3ms)
+  ✅ null explícito y números límite (1ms)
+  ✅ update a null y de vuelta (1ms)
+  ✅ whereIn con lista grande (500 ids) (1ms)
+
+[error] UNIQUE constraint failed: users.email
+⚠️ No se pudo leer el archivo de origen: async H:\Git\dbcube\examples\full-test.js
+
+Stack Trace:
+    at _Table.getResponse (H:\Git\dbcube\examples\node_modules\@dbcube\query-builder\dist\index.cjs:1367:11)
+    at async _Table.insert (H:\Git\dbcube\examples\node_modules\@dbcube\query-builder\dist\index.cjs:938:20)
+    at async waitForActual (node:assert:875:5)
+    at async Function.rejects (node:assert:996:25)
+    at async H:\Git\dbcube\examples\full-test.js:591:13
+    at async test (H:\Git\dbcube\examples\full-test.js:40:9)
+    at async main (H:\Git\dbcube\examples\full-test.js:590:9)
+
+  ✅ un INSERT que viola UNIQUE lanza error (no falla en silencio) (2ms)
+
+[error] UNIQUE constraint failed: users.email
+⚠️ No se pudo leer el archivo de origen: async H:\Git\dbcube\examples\full-test.js
+
+Stack Trace:
+    at _Table.getResponse (H:\Git\dbcube\examples\node_modules\@dbcube\query-builder\dist\index.cjs:1367:11)
+    at async waitForActual (node:assert:875:5)
+    at async Function.rejects (node:assert:996:25)
+    at async H:\Git\dbcube\examples\full-test.js:601:13
+    at async test (H:\Git\dbcube\examples\full-test.js:40:9)
+    at async main (H:\Git\dbcube\examples\full-test.js:600:9)
+
+  ✅ un UPDATE inválido lanza error (1ms)
+
+━━ Bulk + performance ━━
+✅ 🚀 TURBO INSERT COMPLETED
+   📈 Records: 1500 | Time: 38ms | Speed: 38658 rec/sec
+   ⚡ Performance: 0.025ms per record | Batches: 3 | Parallelism: 4x
+   🏆 Prepared cache hits: ~95% | Total inserted: 1500
+     ↳ 1500 filas en 47ms (31915 filas/s)
+  ✅ bulk insert 1500 filas (TURBO path) y verificación EXACTA (49ms)
+  ✅ sum sobre 1500 filas correcto (0ms)
+     ↳ 18ms total · 0.18ms/query
+  ✅ 100 queries secuenciales — latencia promedio (18ms)
+     ↳ 50 concurrentes en 2ms
+  ✅ 50 queries concurrentes (Promise.all) (3ms)
+  ✅ lecturas mezcladas con escrituras concurrentes (111ms)
+  ✅ chunk sobre 1500 filas (12ms)
+  ✅ delete masivo con where (1ms)
+
+━━  ━━
+
+══════════════════════════════════════════════════
+  [sqlite] 65 pasaron · 0 fallaron · 1.3s
+══════════════════════════════════════════════════
+  Tiempos por sección:
+    Setup de esquema: 916ms
+    Lecturas: select y where en todas sus variantes: 11ms
+    Agregaciones: 7ms
+    Escrituras: 91ms
+    Transacciones: 19ms
+    Relaciones (eager loading): 4ms
+    raw(): 2ms
+    Edge cases de datos: 15ms
+    Bulk + performance: 194ms
+
+- Verificando versiones de binarios...
+
+✅ query-engine: v1.1.0 (up to date)
+
+✅ schema-engine: v1.1.0 (up to date)
+
+✅ sqlite-engine: v1.0.0 (up to date)
+✔ All binaries are up to date
+
+████████████████████████████████████████████████████████████
+█ full-test.js mysql
+████████████████████████████████████████████████████████████
+
+🧪 DBCube FULL TEST — mysql (ft_mysql)
+
+━━ Setup de esquema ━━
+  ✅ seed: insert múltiple devuelve filas insertadas (103ms)
+  ✅ seed: orders (11ms)
+
+━━ Lecturas: select y where en todas sus variantes ━━
+  ✅ select de columnas específicas (2ms)
+  ✅ where = (3ms)
+  ✅ where != / <> (4ms)
+  ✅ where > < >= <= (8ms)
+  ✅ where LIKE / NOT LIKE (7ms)
+  ✅ whereIn / whereNotIn (6ms)
+  ✅ whereBetween (2ms)
+  ✅ whereNull / whereNotNull (4ms)
+  ✅ orWhere (3ms)
+  ✅ whereGroup (regresión grupo vacío) (3ms)
+  ✅ whereGroup anidado en cadena con más wheres (2ms)
+  ✅ first / find / find por columna (9ms)
+  ✅ orderBy ASC/DESC + múltiple lectura estable (6ms)
+  ✅ limit / offset / page (7ms)
+  ✅ distinct (5ms)
+  ✅ join INNER (3ms)
+  ✅ leftJoin conserva filas sin match (13ms)
+
+━━ Agregaciones ━━
+  ✅ count / count con where / count(col) (5ms)
+  ✅ sum / avg / max / min (12ms)
+  ✅ agregación con filtro (3ms)
+  ✅ exists (7ms)
+  ✅ groupBy + having + selectRaw (5ms)
+  ✅ paginate: páginas, total y flags (17ms)
+  ✅ paginate respeta where (3ms)
+  ✅ chunk completo y corte temprano (9ms)
+
+━━ Escrituras ━━
+  ✅ update con where (11ms)
+  ✅ update multi-columna (8ms)
+  ✅ update sin where → error (1ms)
+  ✅ delete sin where → error (0ms)
+  ✅ delete con where (20ms)
+  ✅ upsert inserta → actualiza → multi-fila (21ms)
+  ✅ upsert con updateColumns restringidas (7ms)
+  ✅ increment / decrement / con extra (24ms)
+  ✅ increment concurrente no pierde updates (atómico) (81ms)
+  ✅ truncate (8ms)
+
+━━ Transacciones ━━
+  ✅ commit aplica todo (12ms)
+  ✅ rollback revierte todo (9ms)
+  ✅ lecturas dentro de TX ven cambios no commiteados (17ms)
+  ✅ insert + delete dentro de TX con rollback (13ms)
+  ✅ raw dentro de TX participa del rollback (7ms)
+  ✅ transacciones secuenciales rápidas (10) (84ms)
+  ✅ el valor de retorno del callback se propaga (6ms)
+
+━━ Relaciones (eager loading) ━━
+  ✅ with() hasMany explícito (9ms)
+  ✅ with() belongsTo explícito (6ms)
+  ✅ with() + where + orderBy combinados (5ms)
+
+━━ raw() ━━
+  ✅ raw select con params (3ms)
+  ✅ raw DML devuelve affectedRows (3ms)
+  ✅ raw DDL (CREATE INDEX) (57ms)
+
+━━ Edge cases de datos ━━
+  ✅ comillas, backslashes y SQL-injection strings sobreviven (51ms)
+  ✅ unicode: emojis, chino, árabe, acentos (41ms)
+  ✅ string largo (100 KB) (24ms)
+  ✅ null explícito y números límite (17ms)
+  ✅ update a null y de vuelta (10ms)
+  ✅ whereIn con lista grande (500 ids) (4ms)
+
+[error] error returned from database: 1062 (23000): Duplicate entry 'ada@ft.dev' for key 'users.email'
+⚠️ No se pudo leer el archivo de origen: async H:\Git\dbcube\examples\full-test.js
+
+Stack Trace:
+    at _Table.getResponse (H:\Git\dbcube\examples\node_modules\@dbcube\query-builder\dist\index.cjs:1367:11)
+    at async _Table.insert (H:\Git\dbcube\examples\node_modules\@dbcube\query-builder\dist\index.cjs:938:20)
+    at async waitForActual (node:assert:875:5)
+    at async Function.rejects (node:assert:996:25)
+    at async H:\Git\dbcube\examples\full-test.js:591:13
+    at async test (H:\Git\dbcube\examples\full-test.js:40:9)
+    at async main (H:\Git\dbcube\examples\full-test.js:590:9)
+
+  ✅ un INSERT que viola UNIQUE lanza error (no falla en silencio) (6ms)
+
+[error] error returned from database: 1062 (23000): Duplicate entry 'linus@ft.dev' for key 'users.email'
+⚠️ No se pudo leer el archivo de origen: async H:\Git\dbcube\examples\full-test.js
+
+Stack Trace:
+    at _Table.getResponse (H:\Git\dbcube\examples\node_modules\@dbcube\query-builder\dist\index.cjs:1367:11)
+    at async waitForActual (node:assert:875:5)
+    at async Function.rejects (node:assert:996:25)
+    at async H:\Git\dbcube\examples\full-test.js:601:13
+    at async test (H:\Git\dbcube\examples\full-test.js:40:9)
+    at async main (H:\Git\dbcube\examples\full-test.js:600:9)
+
+  ✅ un UPDATE inválido lanza error (5ms)
+
+━━ Bulk + performance ━━
+✅ 🚀 TURBO INSERT COMPLETED
+   📈 Records: 1500 | Time: 69ms | Speed: 21709 rec/sec
+   ⚡ Performance: 0.046ms per record | Batches: 3 | Parallelism: 4x
+   🏆 Prepared cache hits: ~95% | Total inserted: 1500
+     ↳ 1500 filas en 78ms (19231 filas/s)
+  ✅ bulk insert 1500 filas (TURBO path) y verificación EXACTA (89ms)
+  ✅ sum sobre 1500 filas correcto (3ms)
+     ↳ 136ms total · 1.36ms/query
+  ✅ 100 queries secuenciales — latencia promedio (137ms)
+     ↳ 50 concurrentes en 21ms
+  ✅ 50 queries concurrentes (Promise.all) (21ms)
+  ✅ lecturas mezcladas con escrituras concurrentes (54ms)
+  ✅ chunk sobre 1500 filas (41ms)
+  ✅ delete masivo con where (14ms)
+
+━━  ━━
+
+══════════════════════════════════════════════════
+  [mysql] 65 pasaron · 0 fallaron · 1.6s
+══════════════════════════════════════════════════
+  Tiempos por sección:
+    Setup de esquema: 482ms
+    Lecturas: select y where en todas sus variantes: 90ms
+    Agregaciones: 61ms
+    Escrituras: 181ms
+    Transacciones: 150ms
+    Relaciones (eager loading): 20ms
+    raw(): 64ms
+    Edge cases de datos: 158ms
+    Bulk + performance: 359ms
+
+- Verificando versiones de binarios...
+
+✅ query-engine: v1.1.0 (up to date)
+
+✅ schema-engine: v1.1.0 (up to date)
+
+✅ sqlite-engine: v1.0.0 (up to date)
+✔ All binaries are up to date
+
+████████████████████████████████████████████████████████████
+█ full-test.js postgres
+████████████████████████████████████████████████████████████
+
+🧪 DBCube FULL TEST — postgres (ft_postgres)
+
+━━ Setup de esquema ━━
+  ✅ seed: insert múltiple devuelve filas insertadas (84ms)
+  ✅ seed: orders (17ms)
+
+━━ Lecturas: select y where en todas sus variantes ━━
+  ✅ select de columnas específicas (3ms)
+  ✅ where = (3ms)
+  ✅ where != / <> (5ms)
+  ✅ where > < >= <= (9ms)
+  ✅ where LIKE / NOT LIKE (8ms)
+  ✅ whereIn / whereNotIn (8ms)
+  ✅ whereBetween (3ms)
+  ✅ whereNull / whereNotNull (5ms)
+  ✅ orWhere (4ms)
+  ✅ whereGroup (regresión grupo vacío) (2ms)
+  ✅ whereGroup anidado en cadena con más wheres (3ms)
+  ✅ first / find / find por columna (9ms)
+  ✅ orderBy ASC/DESC + múltiple lectura estable (4ms)
+  ✅ limit / offset / page (7ms)
+  ✅ distinct (2ms)
+  ✅ join INNER (3ms)
+  ✅ leftJoin conserva filas sin match (2ms)
+
+━━ Agregaciones ━━
+  ✅ count / count con where / count(col) (5ms)
+  ✅ sum / avg / max / min (12ms)
+  ✅ agregación con filtro (2ms)
+  ✅ exists (5ms)
+  ✅ groupBy + having + selectRaw (4ms)
+  ✅ paginate: páginas, total y flags (13ms)
+  ✅ paginate respeta where (2ms)
+  ✅ chunk completo y corte temprano (8ms)
+
+━━ Escrituras ━━
+  ✅ update con where (17ms)
+  ✅ update multi-columna (6ms)
+  ✅ update sin where → error (1ms)
+  ✅ delete sin where → error (0ms)
+  ✅ delete con where (8ms)
+  ✅ upsert inserta → actualiza → multi-fila (15ms)
+  ✅ upsert con updateColumns restringidas (5ms)
+  ✅ increment / decrement / con extra (15ms)
+  ✅ increment concurrente no pierde updates (atómico) (30ms)
+  ✅ truncate (5ms)
+
+━━ Transacciones ━━
+  ✅ commit aplica todo (80ms)
+  ✅ rollback revierte todo (10ms)
+  ✅ lecturas dentro de TX ven cambios no commiteados (11ms)
+  ✅ insert + delete dentro de TX con rollback (12ms)
+  ✅ raw dentro de TX participa del rollback (7ms)
+  ✅ transacciones secuenciales rápidas (10) (47ms)
+  ✅ el valor de retorno del callback se propaga (5ms)
+
+━━ Relaciones (eager loading) ━━
+  ✅ with() hasMany explícito (7ms)
+  ✅ with() belongsTo explícito (5ms)
+  ✅ with() + where + orderBy combinados (5ms)
+
+━━ raw() ━━
+  ✅ raw select con params (2ms)
+  ✅ raw DML devuelve affectedRows (2ms)
+  ✅ raw DDL (CREATE INDEX) (8ms)
+
+━━ Edge cases de datos ━━
+  ✅ comillas, backslashes y SQL-injection strings sobreviven (30ms)
+  ✅ unicode: emojis, chino, árabe, acentos (23ms)
+  ✅ string largo (100 KB) (8ms)
+  ✅ null explícito y números límite (8ms)
+  ✅ update a null y de vuelta (5ms)
+  ✅ whereIn con lista grande (500 ids) (3ms)
+
+[error] error returned from database: duplicate key value violates unique constraint "users_email_key"
+⚠️ No se pudo leer el archivo de origen: async H:\Git\dbcube\examples\full-test.js
+
+Stack Trace:
+    at _Table.getResponse (H:\Git\dbcube\examples\node_modules\@dbcube\query-builder\dist\index.cjs:1367:11)
+    at async _Table.insert (H:\Git\dbcube\examples\node_modules\@dbcube\query-builder\dist\index.cjs:938:20)
+    at async waitForActual (node:assert:875:5)
+    at async Function.rejects (node:assert:996:25)
+    at async H:\Git\dbcube\examples\full-test.js:591:13
+    at async test (H:\Git\dbcube\examples\full-test.js:40:9)
+    at async main (H:\Git\dbcube\examples\full-test.js:590:9)
+
+  ✅ un INSERT que viola UNIQUE lanza error (no falla en silencio) (5ms)
+
+[error] error returned from database: duplicate key value violates unique constraint "users_email_key"
+⚠️ No se pudo leer el archivo de origen: async H:\Git\dbcube\examples\full-test.js
+
+Stack Trace:
+    at _Table.getResponse (H:\Git\dbcube\examples\node_modules\@dbcube\query-builder\dist\index.cjs:1367:11)
+    at async waitForActual (node:assert:875:5)
+    at async Function.rejects (node:assert:996:25)
+    at async H:\Git\dbcube\examples\full-test.js:601:13
+    at async test (H:\Git\dbcube\examples\full-test.js:40:9)
+    at async main (H:\Git\dbcube\examples\full-test.js:600:9)
+
+  ✅ un UPDATE inválido lanza error (3ms)
+
+━━ Bulk + performance ━━
+✅ 🚀 TURBO INSERT COMPLETED
+   📈 Records: 1500 | Time: 25ms | Speed: 59523 rec/sec
+   ⚡ Performance: 0.017ms per record | Batches: 3 | Parallelism: 4x
+   🏆 Prepared cache hits: ~95% | Total inserted: 1500
+     ↳ 1500 filas en 34ms (44118 filas/s)
+  ✅ bulk insert 1500 filas (TURBO path) y verificación EXACTA (42ms)
+  ✅ sum sobre 1500 filas correcto (3ms)
+     ↳ 177ms total · 1.77ms/query
+  ✅ 100 queries secuenciales — latencia promedio (177ms)
+     ↳ 50 concurrentes en 18ms
+  ✅ 50 queries concurrentes (Promise.all) (19ms)
+  ✅ lecturas mezcladas con escrituras concurrentes (20ms)
+  ✅ chunk sobre 1500 filas (48ms)
+  ✅ delete masivo con where (8ms)
+
+━━  ━━
+
+══════════════════════════════════════════════════
+  [postgres] 65 pasaron · 0 fallaron · 1.0s
+══════════════════════════════════════════════════
+  Tiempos por sección:
+    Setup de esquema: 191ms
+    Lecturas: select y where en todas sus variantes: 83ms
+    Agregaciones: 54ms
+    Escrituras: 103ms
+    Transacciones: 172ms
+    Relaciones (eager loading): 17ms
+    raw(): 14ms
+    Edge cases de datos: 86ms
+    Bulk + performance: 317ms
+
+- Verificando versiones de binarios...
+
+✅ query-engine: v1.1.0 (up to date)
+
+✅ schema-engine: v1.1.0 (up to date)
+
+✅ sqlite-engine: v1.0.0 (up to date)
+✔ All binaries are up to date
+
+████████████████████████████████████████████████████████████
+█ full-test.js mongodb
+████████████████████████████████████████████████████████████
+
+🧪 DBCube FULL TEST — mongodb (ft_mongo)
+
+━━ Setup de esquema ━━
+  ✅ seed: insert múltiple devuelve filas insertadas (35ms)
+  ✅ seed: orders (19ms)
+
+━━ Lecturas: select y where en todas sus variantes ━━
+  ✅ select de columnas específicas (1ms)
+  ✅ where = (2ms)
+  ✅ where != / <> (2ms)
+  ✅ where > < >= <= (6ms)
+  ✅ where LIKE / NOT LIKE (4ms)
+  ✅ whereIn / whereNotIn (3ms)
+  ✅ whereBetween (1ms)
+  ✅ whereNull / whereNotNull (2ms)
+  ✅ orWhere (2ms)
+  ✅ whereGroup (regresión grupo vacío) (1ms)
+  ✅ whereGroup anidado en cadena con más wheres (1ms)
+  ✅ first / find / find por columna (4ms)
+  ✅ orderBy ASC/DESC + múltiple lectura estable (3ms)
+  ✅ limit / offset / page (3ms)
+  ✅ distinct (1ms)
+
+━━ Agregaciones ━━
+  ✅ count / count con where / count(col) (2ms)
+  ✅ sum / avg / max / min (9ms)
+  ✅ agregación con filtro (1ms)
+  ✅ exists (1ms)
+  ✅ paginate: páginas, total y flags (5ms)
+  ✅ paginate respeta where (1ms)
+  ✅ chunk completo y corte temprano (5ms)
+
+━━ Escrituras ━━
+  ✅ update con where (5ms)
+  ✅ update multi-columna (3ms)
+  ✅ update sin where → error (1ms)
+  ✅ delete sin where → error (0ms)
+  ✅ delete con where (20ms)
+  ✅ upsert inserta → actualiza → multi-fila (15ms)
+  ✅ upsert con updateColumns restringidas (4ms)
+  ✅ increment / decrement / con extra (13ms)
+  ✅ increment concurrente no pierde updates (atómico) (23ms)
+  ✅ truncate (3ms)
+
+━━ Transacciones ━━
+  ✅ commit aplica todo (9ms)
+  ✅ rollback revierte todo (6ms)
+  ✅ lecturas dentro de TX ven cambios no commiteados (8ms)
+  ✅ insert + delete dentro de TX con rollback (8ms)
+  ✅ transacciones secuenciales rápidas (10) (47ms)
+  ✅ el valor de retorno del callback se propaga (4ms)
+
+━━ Relaciones (eager loading) ━━
+  ✅ with() hasMany explícito (4ms)
+  ✅ with() belongsTo explícito (3ms)
+  ✅ with() + where + orderBy combinados (3ms)
+
+━━ raw() ━━
+  ✅ raw command document: find con filtro y sort (1ms)
+  ✅ raw command: aggregate pipeline (2ms)
+
+━━ Edge cases de datos ━━
+  ✅ comillas, backslashes y SQL-injection strings sobreviven (35ms)
+  ✅ unicode: emojis, chino, árabe, acentos (20ms)
+  ✅ string largo (100 KB) (10ms)
+  ✅ null explícito y números límite (7ms)
+  ✅ update a null y de vuelta (4ms)
+  ✅ whereIn con lista grande (500 ids) (2ms)
+
+━━ Bulk + performance ━━
+✅ 🚀 TURBO INSERT COMPLETED
+   📈 Records: 1500 | Time: 52ms | Speed: 28607 rec/sec
+   ⚡ Performance: 0.035ms per record | Batches: 3 | Parallelism: 4x
+   🏆 Prepared cache hits: ~95% | Total inserted: 1500
+     ↳ 1500 filas en 63ms (23810 filas/s)
+  ✅ bulk insert 1500 filas (TURBO path) y verificación EXACTA (70ms)
+  ✅ sum sobre 1500 filas correcto (9ms)
+     ↳ 90ms total · 0.90ms/query
+  ✅ 100 queries secuenciales — latencia promedio (90ms)
+     ↳ 50 concurrentes en 7ms
+  ✅ 50 queries concurrentes (Promise.all) (7ms)
+  ✅ lecturas mezcladas con escrituras concurrentes (18ms)
+  ✅ chunk sobre 1500 filas (55ms)
+  ✅ delete masivo con where (67ms)
+
+━━  ━━
+
+══════════════════════════════════════════════════
+  [mongodb] 58 pasaron · 0 fallaron · 1.0s
+══════════════════════════════════════════════════
+  Tiempos por sección:
+    Setup de esquema: 335ms
+    Lecturas: select y where en todas sus variantes: 39ms
+    Agregaciones: 26ms
+    Escrituras: 88ms
+    Transacciones: 82ms
+    Relaciones (eager loading): 10ms
+    raw(): 3ms
+    Edge cases de datos: 78ms
+    Bulk + performance: 316ms
+
+- Verificando versiones de binarios...
+
+✅ query-engine: v1.1.0 (up to date)
+
+✅ schema-engine: v1.1.0 (up to date)
+
+✅ sqlite-engine: v1.0.0 (up to date)
+✔ All binaries are up to date
+
+████████████████████████████████████████████████████████████
+█ cli-test.js
+████████████████████████████████████████████████████████████
+
+🧪 DBCube CLI FULL TEST (ft_sqlite)
+
+  ✅ dbcube validate → exit 0 con cubes válidos (609ms)
+  ✅ dbcube validate detecta cube inválido → exit 1 (205ms)
+  ✅ dbcube run table:fresh --force crea las tablas (19085ms)
+  ✅ la tabla customers existe y está vacía (182ms)
+  ✅ dbcube run seeder:add inserta el dataset (10976ms)
+  ✅ dbcube run trigger:fresh registra triggers y genera JS (11251ms)
+  ✅ runtime: beforeAdd normaliza el email en un insert real (123ms)
+  ✅ runtime: afterAdd escribió el log de auditoría (0ms)
+  ✅ computed field full_name se calcula al leer (85ms)
+  ✅ table:alter --dry-run muestra SQL sin ejecutar (5522ms)
+  ✅ table:alter aplica la migración pendiente (5536ms)
+  ✅ re-ejecutar table:alter no duplica (solo pendientes) (231ms)
+  ✅ migrate:status lista la migración aplicada (138ms)
+  ✅ migrate:rollback revierte la columna (3519ms)
+  ✅ dbcube generate produce types.ts con la interfaz (73ms)
+  ✅ dbcube run pull genera cubes sin la columna uuid (517ms)
+  ✅ dbcube doctor termina OK (1017ms)
+  ✅ dbcube -v muestra versiones (87ms)
+  ✅ comando inexistente → exit 1 + sugerencia (54ms)
+
+══════════════════════════════════════════════════
+  [CLI] 19 pasaron · 0 fallaron · 59.9s
+══════════════════════════════════════════════════
+
+
+════════════════════════════════════════════════════════════
+  RESUMEN GLOBAL (71.4s)
+════════════════════════════════════════════════════════════
+  ✅ full-test.js sqlite            5.1s
+  ✅ full-test.js mysql             2.0s
+  ✅ full-test.js postgres          2.1s
+  ✅ full-test.js mongodb           2.0s
+  ✅ cli-test.js                    60.2s
+
