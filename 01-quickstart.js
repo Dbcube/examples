@@ -29,7 +29,7 @@ async function main() {
     const margaret = await db.table('users').where('email', '=', 'margaret@example.com').first();
     console.log('Inserted:', margaret.name, '→ id', margaret.id);
 
-    // Update — a WHERE is mandatory (DBCube refuses mass updates by accident)
+    // Update — a WHERE is mandatory (Dbcube refuses mass updates by accident)
     await db.table('users').where('id', '=', margaret.id).update({ status: 'active' });
 
     // Delete — same rule

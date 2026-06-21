@@ -1,0 +1,21 @@
+# dependencies
+node_modules/
+
+# Dbcube native engine binaries — downloaded per-platform on install/first run
+.dbcube/
+
+# generated SQLite databases (created by `node setup.js` / the full test suite)
+*.db
+*.db-shm
+*.db-wal
+
+# generated at runtime from the .cube sources (kept: dbcube/cubes/ and dbcube/types.ts)
+dbcube/triggers/
+dbcube/logs/
+dbcube/migrations.json
+
+# editor / OS noise
+.lh/
+.DS_Store
+Thumbs.db
+*.log

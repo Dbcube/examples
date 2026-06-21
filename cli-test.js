@@ -58,7 +58,7 @@ async function test(name, fn) {
 
 async function main() {
     const suiteStart = Date.now();
-    console.log('\n🧪 DBCube CLI FULL TEST (ft_sqlite)\n');
+    console.log('\n🧪 Dbcube CLI FULL TEST (ft_sqlite)\n');
 
     // Clean state: kill stale daemons, fresh DB file, no stale migration history.
     // config.db guarda el registro interno de alters/computes/triggers del
@@ -216,7 +216,7 @@ async function main() {
         try {
             assert.strictEqual(r.code, 0, r.out.slice(-800));
             assert.ok(created.length > 0, 'pull no generó ningún archivo');
-            // los cubes generados NO deben declarar uuid (la gestiona DBCube;
+            // los cubes generados NO deben declarar uuid (la gestiona Dbcube;
             // declararla rompería el próximo table:fresh)
             for (const f of created) {
                 const content = fs.readFileSync(path.join(dbDir, f), 'utf8');

@@ -1,6 +1,6 @@
 # 10 — Schema as code: the .cube workflow
 
-DBCube manages your schema from versioned `.cube` files instead of hand-written
+Dbcube manages your schema from versioned `.cube` files instead of hand-written
 DDL. The files for this example live in `dbcube/cubes/`.
 
 ## The full lifecycle

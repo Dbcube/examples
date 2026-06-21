@@ -1,5 +1,5 @@
 /**
- * full-test.js — exhaustive DBCube test against a REAL database.
+ * full-test.js — exhaustive Dbcube test against a REAL database.
  *
  * Usage:
  *     docker compose up -d --wait          (once)
@@ -50,7 +50,7 @@ async function test(name, fn) {
 async function main() {
     const suiteStart = Date.now();
     const db = dbcube.database(dbName);
-    console.log(`\n🧪 DBCube FULL TEST — ${ENGINE} (${dbName})`);
+    console.log(`\n🧪 Dbcube FULL TEST — ${ENGINE} (${dbName})`);
 
     // ════════════════════════ SETUP ════════════════════════
     section('Setup de esquema');

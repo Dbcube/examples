@@ -1,5 +1,5 @@
 /**
- * DBCube configuration for the examples + full test suite.
+ * Dbcube configuration for the examples + full test suite.
  *
  * `demo` (SQLite) powers the simple 01-09 examples with zero services.
  * The `ft_*` entries are REAL databases from docker-compose.yml:

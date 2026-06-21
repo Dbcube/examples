@@ -1,6 +1,6 @@
-# 11 — DBCube in microservices (multiple replicas, one database)
+# 11 — Dbcube in microservices (multiple replicas, one database)
 
-Patterns for running services that use DBCube behind a load balancer with
+Patterns for running services that use Dbcube behind a load balancer with
 N replicas.
 
 ## How the daemon behaves with replicas
@@ -31,7 +31,7 @@ myapp: {
 
 ## Triggers fire exactly once — by design
 
-DBCube triggers (`.trigger.cube`) are **not** database triggers. They are JS
+Dbcube triggers (`.trigger.cube`) are **not** database triggers. They are JS
 functions that run inside the service instance that performs the write:
 
 ```

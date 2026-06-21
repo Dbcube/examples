@@ -1,9 +1,0 @@
-{
-  "tables": [
-    "customers",
-    "users",
-    "orders"
-  ],
-  "seeders": [],
-  "timestamp": "2026-06-14T06:55:54.275Z"
-}
