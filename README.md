@@ -151,8 +151,18 @@ For cloud hosts (Supabase, Turso, PlanetScale, Atlas) use a `URL` (and
 - Install: `npm install dbcube`
 - More examples & use cases: [dbcube.dev/examples](https://dbcube.dev/examples/overview)
 
+## ⚖️ License & the native engine
+
+The code in this repository is MIT licensed. The **native engine binary** (the
+Rust core, downloaded automatically on install) is **proprietary** and **not**
+MIT-licensed. Decompiling, disassembling, decompressing, deobfuscating or
+otherwise reverse-engineering the binary — or attempting to extract its source
+code, internal structure or algorithms — is **strictly prohibited and illegal**,
+and infringes Dbcube's intellectual property rights. Use it only through the
+public `dbcube` API.
+
 ---
 
 <div align="center">
-MIT licensed · Made by the <strong>Dbcube</strong> team
+MIT licensed (engine excluded — see above) · Made by the <strong>Dbcube</strong> team
 </div>
